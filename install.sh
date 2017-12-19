@@ -1,14 +1,5 @@
 #!/bin/bash
 
-# Usage steps:
-# 1. Create the necessary logical volumes, e.g. lvcreate -L 64G -n RancherOs01Vol vg00
-# 2. Make sure that the config.yml is copied to an HTTP server somewhere, the default is to serve it from http://cloud-init/rancheros/config.yml
-# 3. If using the default URL for the cloud config, make sure that the hostname cloud-init is resolvable and the file exists on that system
-# 4. Run this script
-
-# Use the following command to quickly host the custom config files locally where each custom config file is referenced using the same name in this script.
-# docker run -p 808$1:80/tcp -v $(pwd)/cloud-config-0$1.yml:/usr/share/nginx/html/install-config nginx:alpine
-
 if [ -z "$1" ] ; then
   printf 'Required parameter "SERVER_ID" is not set\n'
   exit -1
