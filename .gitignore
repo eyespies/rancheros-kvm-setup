@@ -1,0 +1,7 @@
+cloud-config-??.yml
+RancherOS
+*.swp
+*.tgz
+*.tar.gz
+*.zip
+*.bz2

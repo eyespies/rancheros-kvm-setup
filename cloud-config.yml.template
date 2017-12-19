@@ -1,0 +1,25 @@
+#cloud-config
+write_files:
+  - path: /tmp/cloud-config.yml
+    permissions: "0600"
+    owner: root
+    content: |
+      #cloud-config
+      hostname: %hostname%
+      write_files:
+        - path: /etc/rc.local
+          permissions: "0755"
+          owner: root
+          content: |
+            #!/bin/bash
+            wait-for-docker
+            docker run --rm --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/rancher:/var/lib/rancher rancher/agent:%agent_version% %master_url%
+      ssh_authorized_keys:
+        - ssh-rsa %ssh_key%
+
+ssh_authorized_keys:
+  - ssh-rsa %ssh_key%
+
+runcmd:
+  - [ printf, "Starting ROS install\n" ]
+  - [ sudo, ros, install, -c, /tmp/cloud-config.yml, -d, /dev/vda, -f ]
